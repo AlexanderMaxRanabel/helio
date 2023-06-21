@@ -70,7 +70,7 @@ async def yomama(ctx, user: discord.Member):
     insult1 = "Yo mama so fat when she passed infront of the tv half of the seasons passed"
     insult2 = "Yo mama so dumb she studied for an eye test"
     insult3 = "Yo mama so slow she took 9 months to make a joke"
-
+    # Atahan abi burayı Yapmaya üşeniyorum
     joke = random.randint(1, 3)
     mention = user.mention
     if joke == 1:
@@ -80,6 +80,31 @@ async def yomama(ctx, user: discord.Member):
     elif joke == 3:
         await ctx.send(f'{mention} {insult3}')
 
+@bot.command()
+async def ban(ctx, user: discord.Member):
+    # Check if the user has the necessary permissions to ban members
+    if ctx.author.guild_permissions.ban_members:
+        await user.ban()
+        await ctx.send(f"{user.name} has been banned.")
+    else:
+        await ctx.send("You don't have the permission to ban members.")
+
+@bot.command()
+async def unban(ctx, user: discord.Member):
+    if ctx.author.guild_permissions.unban_members:
+        await user.unban()
+        await ctx.send(f"{user.name} has been unbanned")
+    else:
+        await ctx.send("You dont have permission to unban members")
+
+@bot.command()
+async def kick(ctx, user: discord.Member):
+    # Check if the user has the necessary permissions to ban members
+    if ctx.author.guild_permissions.kick_members:
+        await user.kick()
+        await ctx.send(f"{user.name} has been kicked.")
+    else:
+        await ctx.send("You don't have the permission to kick members.")
 
 #@bot.command()
 #async def levget(ctx):
