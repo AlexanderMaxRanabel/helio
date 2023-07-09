@@ -147,6 +147,22 @@ async def remindme(ctx, times: int, remind_type: str, *, message: str):
 
 
 @bot.command()
+async def lyrics(ctx, artist: str, *, title: str):
+    url = "https://api.lyrics.ovh/v1/" + artist + "/" + title
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        result = data.get('lyrics')
+        if result:
+            await ctx.send(f"Here is the lyrics for {artist}'s {title}: ")
+            await ctx.send(f"{result}")
+        else:
+            await ctx.send("Lyrics not found.")
+    else:
+        await ctx.send("Failed to retrieve lyrics. Please try again later.")
+
+
+@bot.command()
 async def github(ctx):
     await ctx.send(f"https://github.com/AlexanderMaxRanabel/helio")
 
