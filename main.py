@@ -53,7 +53,7 @@ async def yomama(ctx, user: discord.Member):
     insult1 = "Yo mama so fat when she passed infront of the tv half of the seasons passed"
     insult2 = "Yo mama so dumb she studied for an eye test"
     insult3 = "Yo mama so slow she took 9 months to make a joke"
-    # Atahan abi burayı Yapmaya üşeniyorum
+
     joke = random.randint(1, 3)
     mention = user.mention
     if joke == 1:
@@ -131,21 +131,19 @@ async def http(ctx, url):
 
 
 @bot.command()
-async def remindme(ctx, times: int, remind_type: str, message: str):
+async def remindme(ctx, times: int, remind_type: str, *, message: str):
     author_id = ctx.message.author.id
-    await ctx.send(f"{author_id}")
+    user = await bot.fetch_user(author_id)
+
     if remind_type == "m":
         time.sleep(times * 60)
-        user = await bot.fetch_user(author_id)
-        await user.send(f"You wanted me to remind you: {message}")
+        await user.send(f"You wanted me to remind you: '{message}'")
     elif remind_type == "s":
         time.sleep(times)
-        user = await bot.fetch_user(author_id)
-        await user.send(f"You wanted me to remind you: {message}")
+        await user.send(f"You wanted me to remind you: '{message}'")
     elif remind_type == "h":
         time.sleep(times * 3600)
-        user = await bot.fetch_user(author_id)
-        await user.send(f"You wanted me to remind you: {message}")
+        await user.send(f"You wanted me to remind you: '{message}'")
 
 
 @bot.command()
