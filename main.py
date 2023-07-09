@@ -129,4 +129,4 @@ async def http(ctx, url):
 async def github(ctx):
     await ctx.send(f"https://github.com/AlexanderMaxRanabel/helio")
 
-bot.run('MTEyMDYzNDM1MjM3MjU1MTc3Mw.GQrdOM.HYXKkui8LqyZLBviwOWuIKM67hNviw0R0CeiXw')
+bot.run('')
