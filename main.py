@@ -131,7 +131,7 @@ async def http(ctx, url):
 
 
 @bot.command()
-async def remindmein(ctx, times: int, remind_type: str, message: str):
+async def remindme(ctx, times: int, remind_type: str, message: str):
     author_id = ctx.message.author.id
     await ctx.send(f"{author_id}")
     if remind_type == "m":
