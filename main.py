@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import requests
 import random
+import time
 
 
 intents = discord.Intents.default()
@@ -14,17 +15,17 @@ bot = commands.Bot(command_prefix='+', intents=intents)
 
 @bot.command()
 async def urban(ctx, term):
-        url = f"https://api.urbandictionary.com/v0/define?term={term}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            if len(data['list']) > 0:
-                top_definition = data['list'][0]['definition']
-                await ctx.send(f"**{term}**: {top_definition}")
-            else:
-                await ctx.send(f"No definitions found for {term}.")
+    url = f"https://api.urbandictionary.com/v0/define?term={term}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        if len(data['list']) > 0:
+            top_definition = data['list'][0]['definition']
+            await ctx.send(f"**{term}**: {top_definition}")
         else:
-            await ctx.send("Error: Failed to fetch data from the Urban Dictionary API.")
+            await ctx.send(f"No definitions found for {term}.")
+    else:
+        await ctx.send("Error: Failed to fetch data from the Urban Dictionary API.")
 
 
 @bot.command()
@@ -116,6 +117,8 @@ async def rps(ctx, term):
             await ctx.send(f"I choose {bot_choice}. You chose {term}. Scissors beat paper. You win!")
     else:
         await ctx.send("Invalid choice. Please choose 'rock', 'paper', or 'scissors'.")
+
+
 @bot.command()
 async def http(ctx, url):
     if ctx.author.guild_permissions.ban_members:
@@ -125,6 +128,26 @@ async def http(ctx, url):
             await ctx.send(resp)
         else:
             await ctx.send("Failed to do HTTP request")
+
+
+@bot.command()
+async def remindmein(ctx, times: int, remind_type: str, message: str):
+    author_id = ctx.message.author.id
+    await ctx.send(f"{author_id}")
+    if remind_type == "m":
+        time.sleep(times * 60)
+        user = await bot.fetch_user(author_id)
+        await user.send(f"You wanted me to remind you: {message}")
+    elif remind_type == "s":
+        time.sleep(times)
+        user = await bot.fetch_user(author_id)
+        await user.send(f"You wanted me to remind you: {message}")
+    elif remind_type == "h":
+        time.sleep(times * 3600)
+        user = await bot.fetch_user(author_id)
+        await user.send(f"You wanted me to remind you: {message}")
+
+
 @bot.command()
 async def github(ctx):
     await ctx.send(f"https://github.com/AlexanderMaxRanabel/helio")
