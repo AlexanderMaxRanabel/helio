@@ -150,4 +150,5 @@ async def remindme(ctx, times: int, remind_type: str, *, message: str):
 async def github(ctx):
     await ctx.send(f"https://github.com/AlexanderMaxRanabel/helio")
 
-bot.run('')
+
+bot.run('MTEyMDYzNDM1MjM3MjU1MTc3Mw.GwUlvs.KfrNvpqduhKBfxHh44KpNSU4CgqhgOTt3SrCic')
